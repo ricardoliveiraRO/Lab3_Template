@@ -5,6 +5,8 @@ import java.util.*;
 public class CourseGrades {
     private final String course;
     private final Map<String, StudentGrade> results;
+    private Statistic stats;
+    private GradeSorting gs;
 
     /**
      * Instanciates a new course with empty list of grades.
@@ -13,6 +15,8 @@ public class CourseGrades {
     public CourseGrades(String course) {
         this.course = course;
         results = new HashMap<>();
+        stats = new AverageStatistic();
+        gs = new SortByID();
     }
 
     /**
@@ -107,4 +111,26 @@ public class CourseGrades {
 
         return sb.toString();
     }
+
+    public void changeStatistic(Statistic s){
+        stats = s;
+    }
+
+    public double computeStatistic(){
+        List<StudentGrade> list = new ArrayList<>( results.values());
+        return stats.compute(list);
+    }
+
+    public void changeSort(GradeSorting g){
+        gs = g;
+    }
+
+    //------------------------------------------------------------
+    public String sortValues(){
+        List<StudentGrade> list = new ArrayList<>( results.values());
+        gs.sort(list);
+
+        return list.toString();
+    }
+
 }

@@ -1,7 +1,6 @@
 package pt.pa;
 
-import pt.pa.model.CourseGrades;
-import pt.pa.model.StudentGrade;
+import pt.pa.model.*;
 
 public class Main {
 
@@ -9,6 +8,24 @@ public class Main {
 
         CourseGrades grades = generate_example();
 
+        //------------------------------------
+        System.out.println(grades.sortValues());
+
+        System.out.println("-------------------------------------");
+        //Average
+        System.out.println("Média: " + grades.computeStatistic());
+
+        //Lowest
+        Statistic low = new LowestStatistic();
+        grades.changeStatistic(low);
+        System.out.println("Nota mais baixa: " + grades.computeStatistic());
+
+        //Highest
+        Statistic high = new HighestStatistic();
+        grades.changeStatistic(high);
+        System.out.println("Nota mais alta: " + grades.computeStatistic());
+
+        System.out.println("-------------------------------------");
         System.out.println(grades);
 
     }
